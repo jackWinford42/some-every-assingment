@@ -1,4 +1,6 @@
-/*here is the correct solution*/
+/* I did not realize these problems were supposed to be solved with some and every until I was 
+finished and in the process of submitting the assignment. Therefor I am leaving these here for
+fun and changing the file name. */
 /*
 Write a function called hasOddNumber which accepts an array and returns true if the array contains
 at least one odd number, otherwise it returns false.
@@ -9,9 +11,16 @@ Examples:
 */
 
 function hasOddNumber(arr) {
-    return arr.some(function(num) {
+    let hasOdd = false; 
+    //not sure why but "if (!arr.findIndex(function(num)" also passes the tests
+    //even though when I google "is -1 truthy" i find that it is just a truthy as
+    //a positive int
+    if (arr.find(function(num) {
         return num%2 !== 0;
-    });
+    })) {
+        hasOdd = true;
+    }
+    return hasOdd;
 }
 
 /*
@@ -24,9 +33,14 @@ Examples:
 */
 
 function hasAZero(num) {
-    return num.toString().split('').some(function(digit) {
+    let hasZero = true;
+    let numArr = num.toString().split('');
+    if (-1 === numArr.findIndex(function(digit) {
         return digit === '0';
-    });
+    })){
+        hasZero = false;
+    }
+    return hasZero;
 }
 
 /*
@@ -40,9 +54,13 @@ Examples:
 */
 
 function hasOnlyOddNumbers(arr) {
-    return arr.every(function(num) {
-        return num%2 !== 0;
-    });
+    let hasOnlyOdd = false; 
+    if (!arr.find(function(num) {
+        return num%2 === 0;
+    })) {
+        hasOnlyOdd = true;
+    }
+    return hasOnlyOdd;
 }
 
 /*
@@ -59,12 +77,12 @@ function hasNoDuplicates(arr) {
     let dupeCount = 0;
     let containsDupe = false;
     arr.forEach(function(digit) {
-        containsDupe = !!arr.some(function(dupe) {
+        containsDupe = !!arr.find(function(dupe) {
             if (dupe === digit) {
                 dupeCount++;
             }
             return dupeCount === 2;
-        });
+        })
     });
     return containsDupe;
 }
@@ -86,8 +104,8 @@ Examples:
 */
 
 function hasCertainKey(arr, key) {
-    return arr.every(function(obj) {
-        return obj[key];
+    return !arr.find(function(obj) {
+        return !obj[key];
     });
 }
 
@@ -110,7 +128,7 @@ Examples:
 */
 
 function hasCertainValue(arr, key, searchValue) {
-    return arr.every(function(obj) {
-        return obj[key] === searchValue;
+    return !arr.find(function(obj) {
+        return obj[key] !== searchValue;
     });
 }
